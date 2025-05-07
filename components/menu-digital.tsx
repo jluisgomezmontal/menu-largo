@@ -4,7 +4,6 @@ import type React from "react";
 
 import { useState, useEffect, useRef } from "react";
 import {
-  ChevronRight,
   Moon,
   Search,
   Sun,
@@ -18,6 +17,7 @@ import {
   Egg,
   Wine,
   Martini,
+  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -401,8 +401,8 @@ export function MenuDigital() {
     setTodosLosPlatos(todos);
   }, []);
 
-  const handleBusqueda = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const valor = e.target.value.toLowerCase();
+  const handleBusqueda = (e: any) => {
+    const valor = e;
     setBusqueda(valor);
 
     if (valor === "") {
@@ -437,6 +437,10 @@ export function MenuDigital() {
     setPlatosVisibles(resultados);
   };
 
+  useEffect(() => {
+    handleBusqueda(busqueda);
+  }, [busqueda]);
+
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -469,8 +473,17 @@ export function MenuDigital() {
             placeholder="Buscar platos..."
             className="pl-10"
             value={busqueda}
-            onChange={handleBusqueda}
+            onChange={() => handleBusqueda(busqueda)}
           />
+          {busqueda && (
+            <button
+              type="button"
+              onClick={() => handleBusqueda("")}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </header>
 
@@ -505,7 +518,7 @@ export function MenuDigital() {
                       : ""
                   )}
                 >
-                  <span>{categoria.icono}</span>
+                  <span className="mt-3">{categoria.icono}</span>
                   <span className="text-xs whitespace-nowrap">
                     {categoria.nombre}
                   </span>
@@ -581,13 +594,17 @@ export function MenuDigital() {
                     <div className="flex flex-wrap gap-2 mb-2">
                       {plato.etiquetas.map(
                         (etiqueta: string, index: number) => (
-                          <Badge
+                          <div
                             key={index}
-                            variant="outline"
-                            className="text-xs"
+                            onClick={() => setBusqueda(etiqueta.toLowerCase())}
                           >
-                            {etiqueta}
-                          </Badge>
+                            <Badge
+                              variant="outline"
+                              className="text-xs cursor-pointer"
+                            >
+                              {etiqueta}
+                            </Badge>
+                          </div>
                         )
                       )}
                     </div>
@@ -633,13 +650,19 @@ export function MenuDigital() {
                         <div className="flex flex-wrap gap-2 mb-2">
                           {plato.etiquetas.map(
                             (etiqueta: string, index: number) => (
-                              <Badge
+                              <div
                                 key={index}
-                                variant="outline"
-                                className="text-xs"
+                                onClick={() =>
+                                  setBusqueda(etiqueta.toLowerCase())
+                                }
                               >
-                                {etiqueta}
-                              </Badge>
+                                <Badge
+                                  variant="outline"
+                                  className="text-xs cursor-pointer"
+                                >
+                                  {etiqueta}
+                                </Badge>
+                              </div>
                             )
                           )}
                         </div>
