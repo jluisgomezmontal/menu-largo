@@ -12,12 +12,12 @@ import {
   Cake,
   Salad,
   Pizza,
-  Beef,
   Sandwich,
-  Egg,
   Wine,
   Martini,
   X,
+  EggFried,
+  Beef,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "next-themes";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { PiHamburger } from "react-icons/pi";
 
 // Datos del menú con categorías adicionales
 const categorias = [
@@ -35,7 +36,11 @@ const categorias = [
     nombre: "Todas",
     icono: <UtensilsCrossed className="h-4 w-4" />,
   },
-  { id: "desayunos", nombre: "Desayunos", icono: <Egg className="h-4 w-4" /> },
+  {
+    id: "desayunos",
+    nombre: "Desayunos",
+    icono: <EggFried className="h-4 w-4" />,
+  },
   {
     id: "entradas",
     nombre: "Entradas",
@@ -49,7 +54,7 @@ const categorias = [
   {
     id: "principales",
     nombre: "Principales",
-    icono: <UtensilsCrossed className="h-4 w-4" />,
+    icono: <Beef className="h-4 w-4" />,
   },
   {
     id: "hamburguesas",
